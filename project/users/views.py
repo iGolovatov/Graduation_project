@@ -8,11 +8,10 @@ from .forms import CustomUserCreationForm
 class SignUpView(CreateView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy('login')
-    template_name = 'signup.html'
+    template_name = 'registration/signup.html'
 
 class HomePageView(RedirectView):
     template_name = 'home.html'
 
     def get_redirect_url(self):
         return reverse_lazy('home')
-
