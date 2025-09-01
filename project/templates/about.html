@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Биография - Андрей Головатов{% endblock %}
+
+{% block content %}
+<!-- Hero Section for About Page -->
+<section class="hero d-flex align-items-center position-relative overflow-hidden">
+    <div class="hero-content z-index-1 text-center w-100">
+        <div class="container">
+            <h1 class="display-4 mb-4">Биография</h1>
+            <p class="lead fs-2 mb-5 text-warning">Моя история и путь в IT</p>
+        </div>
+    </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="content-card">
+                    <div class="card-body">
+                        <div class="text-center mb-5">
+                            <img src="{% static 'images/author.jpg' %}"
+                                 alt="Андрей Головатов"
+                                 class="img-fluid rounded-circle shadow-lg"
+                                 style="max-width: 200px; border: 5px solid #FFC107;">
+                        </div>
+
+                        <div class="about-content">
+                            <p class="lead fs-5 mb-4">
+                                Меня зовут <strong>Андрей Головатов</strong>, и я начинающий back-end разработчик, увлечённый миром технологий и программирования.
+                            </p>
+
+                            <p class="fs-5 mb-4">
+                                Мой путь в IT начался с изучения основ веб-разработки. Я погрузился в изучение Python, Django, HTML, CSS и JavaScript, постепенно расширяя свой технический стек и углубляя знания в области back-end разработки.
+                            </p>
+
+                            <p class="fs-5 mb-4">
+                                В процессе обучения я создал несколько проектов, включая этот персональный сайт, где делюсь своей историей, опытом и достижениями. Для меня важно не только писать код, но и понимать логику работы систем, создавать эффективные и масштабируемые решения.
+                            </p>
+
+                            <div class="bg-light p-4 rounded-4 mb-4">
+                                <h3 class="h5 fw-bold mb-3">Технологии, с которыми я работаю:</h3>
+                                <ul class="row list-unstyled">
+                                    <li class="col-md-6 mb-2"><i class="fas fa-check text-success me-2"></i> Python</li>
+                                    <li class="col-md-6 mb-2"><i class="fas fa-check text-success me-2"></i> Django</li>
+                                    <li class="col-md-6 mb-2"><i class="fas fa-check text-success me-2"></i> HTML/CSS</li>
+                                    <li class="col-md-6 mb-2"><i class="fas fa-check text-success me-2"></i> Bootstrap</li>
+                                    <li class="col-md-6 mb-2"><i class="fas fa-check text-success me-2"></i> JavaScript</li>
+                                    <li class="col-md-6 mb-2"><i class="fas fa-check text-success me-2"></i> PostgreSQL</li>
+                                    <li class="col-md-6 mb-2"><i class="fas fa-check text-success me-2"></i> Git</li>
+                                    <li class="col-md-6 mb-2"><i class="fas fa-check text-success me-2"></i> REST API</li>
+                                </ul>
+                            </div>
+
+                            <p class="fs-5 mb-4">
+                                Я стремлюсь к постоянному профессиональному росту, активно изучаю новые технологии и подходы к разработке. В свободное время участвую в open-source проектах, решаю задачи на платформах для программистов и экспериментирую с новыми инструментами.
+                            </p>
+
+                            <p class="fs-5 mb-4">
+                                Моя цель — стать профессиональным back-end разработчиком, создавать надёжные и эффективные веб-приложения, которые решают реальные задачи и приносят пользу пользователям.
+                            </p>
+
+                            <div class="text-center mt-5 pt-4 border-top">
+                                <h3 class="h5 mb-4">Связаться со мной</h3>
+                                <div class="d-flex justify-content-center gap-3 flex-wrap">
+                                    <a href="https://t.me/your_telegram" target="_blank" class="btn btn-outline-primary px-4 py-2">
+                                        <i class="fab fa-telegram me-2"></i> Telegram
+                                    </a>
+                                    <a href="https://wa.me/your_whatsapp_number" target="_blank" class="btn btn-outline-success px-4 py-2">
+                                        <i class="fab fa-whatsapp me-2"></i> WhatsApp
+                                    </a>
+                                    <a href="https://instagram.com/your_instagram" target="_blank" class="btn btn-outline-danger px-4 py-2">
+                                        <i class="fab fa-instagram me-2"></i> Instagram
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
