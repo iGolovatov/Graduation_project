@@ -1,3 +1,13 @@
 Django
-gunicorn
+uvicorn
 psycopg2-binary
+Pillow
+python-telegram-bot
+celery
+django_celery_beat
+redis
+django-redis
+python-redis-lock
+requests
+beautifulsoup4
+lxml

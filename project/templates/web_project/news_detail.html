@@ -1,0 +1,30 @@
+{% extends "base/base.html" %}
+
+{% block title %}{{ news.title }} — Новости{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="display-5 fw-bold mb-3">{{ news.title }}</h1>
+
+    <p class="text-muted mb-4">
+        <i class="bi bi-person-circle me-2"></i>
+        <strong>{{ news.author }}</strong> · 
+        <i class="bi bi-clock-history me-2"></i>
+        {{ news.created_at|date:"d M Y в H:i" }}
+    </p>
+
+    {% if news.image %}
+        <div class="mb-4">
+            <img src="{{ news.image.url }}" class="img-fluid rounded shadow-sm" alt="{{ news.title }}">
+        </div>
+    {% endif %}
+
+    <div class="lead fs-5 mb-5">
+        {{ news.content|linebreaks }}
+    </div>
+
+    <a href="{% url 'blog' %}" class="btn btn-outline-primary btn-lg">
+        <i class="bi bi-arrow-left me-2"></i>Вернуться к списку новостей
+    </a>
+</div>
+{% endblock %}

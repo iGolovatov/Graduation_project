@@ -1,0 +1,77 @@
+{% extends "base/base.html" %}
+
+{% block title %}Создать новость — Новости{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="text-center mb-4">📝 Создать новость</h1>
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label for="{{ form.title.id_for_label }}" class="form-label">Заголовок *</label>
+                    {{ form.title }}
+                    {% if form.title.errors %}
+                        <div class="text-danger small mt-1">
+                            {% for error in form.title.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label for="{{ form.content.id_for_label }}" class="form-label">Содержание *</label>
+                    {{ form.content }}
+                    {% if form.content.errors %}
+                        <div class="text-danger small mt-1">
+                            {% for error in form.content.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label for="{{ form.author.id_for_label }}" class="form-label">Автор *</label>
+                    {{ form.author }}
+                    {% if form.author.errors %}
+                        <div class="text-danger small mt-1">
+                            {% for error in form.author.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label for="{{ form.image.id_for_label }}" class="form-label">Изображение (опционально)</label>
+                    {{ form.image }}
+                    {% if form.image.errors %}
+                        <div class="text-danger small mt-1">
+                            {% for error in form.image.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% if form.image.value %}
+                        <small class="text-muted d-block mt-1">Текущее изображение: {{ form.image.value.name }}</small>
+                    {% endif %}
+                </div>
+
+                <div class="d-flex gap-3 pt-4">
+                    <button type="submit" class="btn btn-primary btn-lg flex-grow-1">
+                        <i class="bi bi-save me-2"></i>Предложить новость
+                    </button>
+                    <a href="{% url 'blog' %}" class="btn btn-outline-secondary btn-lg">
+                        <i class="bi bi-x-lg me-2"></i>Отменить
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

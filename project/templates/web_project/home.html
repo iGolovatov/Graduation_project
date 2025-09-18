@@ -1,0 +1,12 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block body_style %}
+background-image: url({% static 'images/author.jpg' %}); background-size: cover; background-position: center; background-repeat: no-repeat;
+{% endblock %}
+{% block title %}Главная - Андрей Головатов{% endblock %}
+
+{% block content %}
+<h1 class="display-3 fw-bold mb-4">Андрей Головатов</h1>
+<p class="lead fs-2 mb-5">Начинающий back-end разработчик</p>
+<a href="{% url 'about' %}" class="btn btn-outline-light btn-lg px-5 py-3 fs-5 shadow-lg">Узнать больше</a>
+{% endblock %}

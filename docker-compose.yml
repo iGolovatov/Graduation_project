@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: docker/app/Dockerfile
     container_name: app
-    command: gunicorn core.wsgi:application --reload --bind 0.0.0.0:8000
+    command: uvicorn --host 0.0.0.0 --port 8000 --log-level debug --reload --workers ${WORKERS:-4} --lifespan off core.asgi:application
     env_file:
       - docker/.env
     restart: always
@@ -12,8 +12,21 @@ services:
       - db
     volumes:
       - ./project:/app
-      - ./volumes/media:/media
-      - ./volumes/static:/static
+      - ./volumes/media:/app/media
+      - ./volumes/static:/app/static
+
+  redis:
+    image: redis:5-alpine
+    container_name: redis
+    env_file: docker/.env
+    restart: always
+    volumes:
+      - ./volumes/redis/data:/data
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   db:
     image: postgres:15
@@ -23,6 +36,26 @@ services:
       - ./volumes/db/data:/var/lib/postgresql/data/
     env_file:
       - docker/.env
+
+  celery:
+    build:
+      context: .
+      dockerfile: docker/app/Dockerfile
+    container_name: celery
+    env_file: docker/.env
+    restart: always
+    volumes:
+      - ./project:/app
+      - ./volumes/media:/media
+    depends_on:
+      - db
+      - redis
+    command: celery -A core worker -l info -B -c ${WORKERS:-4}
+    healthcheck:
+      test: [ "CMD-SHELL", "celery -A apps inspect ping" ]
+      interval: 5s
+      timeout: 10s
+      retries: 5
 
   nginx:
     image: nginx
