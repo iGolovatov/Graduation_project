@@ -1,7 +1,8 @@
 {% extends "base/base.html" %}
 {% load static %}
 {% block body_style %}
-background-image: url({% static 'images/author.jpg' %}); background-size: cover; background-position: center; background-repeat: no-repeat;
+    background-image: url({% static 'images/author.jpg' %}); background-size: cover; background-position: center;
+    background-repeat: no-repeat;
 {% endblock %}
 {% block title %}Блог автора{% endblock %}
 
@@ -12,10 +13,11 @@ background-image: url({% static 'images/author.jpg' %}); background-size: cover;
         <div class="row g-4">
             {% for news in news_list %}
                 <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card h-100 shadow-sm border-warning border-3 rounded-4">
+                    <div class="card h-100 shadow-sm border-warning border-3 rounded-4 bg-secondary-subtle text-secondary">
                         {% if news.image %}
                             <img src="{{ news.image.url }}" class="card-img-top object-fit-cover"
-                                 alt="{{ news.title }}" style="height: 200px; width: 100%; border-radius: 0.5rem; margin: 0 auto; padding: 0.5rem;">
+                                 alt="{{ news.title }}"
+                                 style="height: 200px; width: 100%; border-radius: 0.5rem; margin: 0 auto; padding: 0.5rem;">
                         {% else %}
                             <div class="card-img-top bg-light d-flex align-items-center justify-content-center"
                                  style="height: 200px; width: 100%; border-radius: 0.5rem; margin: 0 auto; padding: 0.5rem;">
@@ -43,7 +45,6 @@ background-image: url({% static 'images/author.jpg' %}); background-size: cover;
             {% endfor %}
         </div>
 
-        <!-- Быстрые переходы -->
         <div class="d-flex justify-content-center gap-3 my-4">
             <a href="?page=1" class="btn btn-outline-warning">
                 <i class="bi bi-arrow-up-circle me-1"></i> К последним новостям
@@ -56,7 +57,7 @@ background-image: url({% static 'images/author.jpg' %}); background-size: cover;
         </div>
 
         <nav aria-label="Page navigation" class="my-5">
-            <ul class="pagination justify-content-center">
+            <ul class="pagination justify-content-center pagination-secondary">
                 {% if page_obj.has_previous %}
                     <li class="page-item">
                         <a class="page-link" href="?page={{ page_obj.previous_page_number }}">← Предыдущая</a>
