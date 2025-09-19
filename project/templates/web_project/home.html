@@ -1,12 +1,46 @@
 {% extends 'base/base.html' %}
 {% load static %}
 {% block body_style %}
-background-image: url({% static 'images/author.jpg' %}); background-size: cover; background-position: center; background-repeat: no-repeat;
+    background-image: url({% static 'images/author.jpg' %}); background-size: cover; background-position: center;
+    background-repeat: no-repeat;
 {% endblock %}
 {% block title %}Главная - Андрей Головатов{% endblock %}
 
 {% block content %}
-<h1 class="display-3 fw-bold mb-4">Андрей Головатов</h1>
-<p class="lead fs-2 mb-5">Начинающий <span class="text-warning">back-end</span> разработчик</p>
-<a href="{% url 'about' %}" class="btn btn-outline-light btn-lg px-5 py-3 fs-5 shadow-lg">Узнать больше</a>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <h1 class="display-3 fw-bold mb-4">Андрей Головатов</h1>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-5">
+                <p class="lead fs-2 mb-5">Начинающий <span class="text-warning">back-end</span> разработчик</p>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-5">
+                <a href="{% url 'about' %}" class="btn btn-outline-light btn-lg px-5 py-3 fs-5 shadow-lg">Узнать
+                    больше</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid"></div>
+
+    <div class="mt-5 p-4 w-50 bg-dark bg-opacity-75 rounded-3 shadow-lg border border-light-subtle">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12"> <!-- Можно оставить col-md-6, но тогда текст не займёт всю ширину карточки -->
+                    <blockquote class="lead fs-2 mb-5">«Если код работает, но никто не может его понять, значит, это не программирование, а магия.»</blockquote>
+                    <footer class="lead fs-2 mb-5">— Анонимный разработчик</footer>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
