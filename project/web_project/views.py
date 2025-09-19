@@ -1,6 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import TemplateView, ListView, CreateView, DetailView
+from django.shortcuts import get_object_or_404
 
 from .forms import NewsForm
 from .models import News
@@ -36,3 +39,35 @@ class NewsDetailView(DetailView):
     template_name = 'web_project/news_detail.html'
     model = News
     context_object_name = 'news'
+
+
+class NewsEditAjaxView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        if not (request.user.is_staff or request.user.is_superuser):
+            return JsonResponse({'error': 'Доступ запрещён'}, status=403)
+
+        news_id = request.POST.get('news_id')
+        if not news_id:
+            return JsonResponse({'error': 'ID новости не указан'}, status=400)
+
+        news = get_object_or_404(News, id=news_id)
+
+        title = request.POST.get('title', '').strip()
+        content = request.POST.get('content', '').strip()
+
+        if not title:
+            return JsonResponse({'error': 'Заголовок обязателен'}, status=400)
+        if not content:
+            return JsonResponse({'error': 'Текст обязателен'}, status=400)
+
+        news.title = title
+        news.content = content
+
+        if 'image' in request.FILES:
+            news.image = request.FILES['image']
+
+        try:
+            news.save()
+            return JsonResponse({'success': True})
+        except Exception as e:
+            return JsonResponse({'error': f'Ошибка сохранения: {str(e)}'}, status=500)
