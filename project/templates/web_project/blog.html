@@ -64,8 +64,15 @@
                                             <textarea name="content" class="form-control" rows="3" required>{{ news.content }}</textarea>
                                         </div>
 
+                                        {% if news.image %}
+                                            <div class="mb-2 form-check">
+                                                <input type="checkbox" name="delete_image" id="delete_image_{{ news.id }}" class="form-check-input">
+                                                <label for="delete_image_{{ news.id }}" class="form-check-label">Удалить текущее фото</label>
+                                            </div>
+                                        {% endif %}
+
                                         <div class="mb-2">
-                                            <label class="form-label">Фото (необязательно)</label>
+                                            <label class="form-label">Загрузить новое фото (необязательно)</label>
                                             <input type="file" name="image" class="form-control">
                                         </div>
 
@@ -140,54 +147,8 @@
             </a>
         </div>
     {% endif %}
+{% endblock %}
 
-    <!-- JavaScript для редактирования -->
-    <script>
-        function toggleEditForm(newsId) {
-            const form = document.getElementById('edit-form-' + newsId);
-            form.style.display = form.style.display === 'none' ? 'block' : 'none';
-        }
-
-        async function submitEditForm(event, newsId) {
-            event.preventDefault();
-
-            const form = event.target;
-            const formData = new FormData(form);
-
-            try {
-                const response = await fetch('/api/edit-news/', {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
-                    },
-                    body: formData
-                });
-
-                const result = await response.json();
-
-                if (response.ok && result.success) {
-                    // Обновляем DOM без перезагрузки
-                    document.getElementById('title-' + newsId).innerText = formData.get('title');
-                    document.getElementById('content-' + newsId).innerText = formData.get('content').substring(0, 200) + '...';
-
-                    // Если загружено новое изображение — обновляем его
-                    const imageFile = formData.get('image');
-                    if (imageFile) {
-                        const imgElement = document.getElementById('image-' + newsId);
-                        if (imgElement && imgElement.tagName === 'IMG') {
-                            imgElement.src = URL.createObjectURL(imageFile);
-                        }
-                    }
-
-                    toggleEditForm(newsId); // Скрываем форму
-                    alert('Новость успешно обновлена!');
-                } else {
-                    alert('Ошибка: ' + (result.error || 'Неизвестная ошибка'));
-                }
-            } catch (err) {
-                console.error('Ошибка:', err);
-                alert('Произошла ошибка при отправке данных.');
-            }
-        }
-    </script>
+{% block extra_js %}
+    <script src="{% static 'js/edit_news_inline.js' %}"></script>
 {% endblock %}

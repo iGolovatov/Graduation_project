@@ -14,7 +14,7 @@ background-image: url({% static 'images/author.jpg' %}); background-size: cover;
 
     <p class="text-muted mb-4">
         <i class="bi bi-person-circle me-2"></i>
-        <strong>{{ news.author }}</strong> · 
+        <strong>{{ news.author }}</strong> ·
         <i class="bi bi-clock-history me-2"></i>
         {{ news.created_at|date:"d M Y в H:i" }}
     </p>
@@ -31,7 +31,7 @@ background-image: url({% static 'images/author.jpg' %}); background-size: cover;
 
     <!-- Кнопка редактирования (только для админа) -->
     {% if user.is_staff or user.is_superuser %}
-        <button class="btn btn-warning" onclick="openEditModal()">
+        <button class="btn btn-warning mb-4" onclick="openEditModal()">
             <i class="bi bi-pencil-square me-1"></i> Редактировать
         </button>
     {% endif %}
@@ -54,8 +54,15 @@ background-image: url({% static 'images/author.jpg' %}); background-size: cover;
                     <textarea class="form-control" id="content" name="content" rows="8" required>{{ news.content }}</textarea>
                 </div>
 
+                {% if news.image %}
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" name="delete_image" id="delete_image" class="form-check-input">
+                        <label for="delete_image" class="form-check-label">Удалить текущее фото</label>
+                    </div>
+                {% endif %}
+
                 <div class="mb-3">
-                    <label for="image" class="form-label">Фото (необязательно)</label>
+                    <label for="image" class="form-label">Загрузить новое фото (необязательно)</label>
                     <input type="file" class="form-control" id="image" name="image">
                 </div>
 
@@ -72,58 +79,8 @@ background-image: url({% static 'images/author.jpg' %}); background-size: cover;
         <i class="bi bi-arrow-left me-2"></i>Вернуться к списку новостей
     </a>
 </div>
+{% endblock %}
 
-<script>
-function openEditModal() {
-    document.getElementById('edit-modal').style.display = 'block';
-}
-
-function closeEditModal() {
-    document.getElementById('edit-modal').style.display = 'none';
-}
-
-async function submitEditForm(event) {
-    event.preventDefault();
-    const form = event.target;
-    const formData = new FormData(form);
-
-    try {
-        const response = await fetch('/api/edit-news/', {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
-            },
-            body: formData
-        });
-
-        const result = await response.json();
-
-        if (response.ok && result.success) {
-            // Обновляем DOM
-            document.getElementById('title').value = formData.get('title');
-            document.getElementById('content').value = formData.get('content');
-            document.getElementById('content-text').innerHTML = formData.get('content').replace(/\n/g, '<br>');
-
-            const imageFile = formData.get('image');
-            if (imageFile) {
-                const imgElement = document.getElementById('image-preview');
-                if (imgElement) {
-                    imgElement.src = URL.createObjectURL(imageFile);
-                }
-            }
-
-            alert('Новость обновлена!');
-            closeEditModal();
-        } else {
-            alert('Ошибка: ' + (result.error || 'Неизвестная ошибка'));
-        }
-    } catch (err) {
-        console.error(err);
-        alert('Произошла ошибка при сохранении.');
-    }
-}
-
-// Привязываем обработчик к форме
-document.getElementById('edit-news-form')?.addEventListener('submit', submitEditForm);
-</script>
+{% block extra_js %}
+    <script src="{% static 'js/edit_news_modal.js' %}"></script>
 {% endblock %}

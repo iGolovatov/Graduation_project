@@ -42,6 +42,15 @@ class NewsDetailView(DetailView):
 
 
 class NewsEditAjaxView(LoginRequiredMixin, View):
+    """
+    Обрабатывает AJAX-запрос на редактирование новости.
+    Поддерживает:
+    - изменение заголовка и текста
+    - загрузку нового фото
+    - удаление текущего фото через чекбокс
+    Только для администраторов (is_staff или is_superuser).
+    """
+
     def post(self, request, *args, **kwargs):
         if not (request.user.is_staff or request.user.is_superuser):
             return JsonResponse({'error': 'Доступ запрещён'}, status=403)
@@ -63,6 +72,13 @@ class NewsEditAjaxView(LoginRequiredMixin, View):
         news.title = title
         news.content = content
 
+        # Удаление фото, если чекбокс отмечен
+        if request.POST.get('delete_image') == 'on':
+            if news.image:
+                news.image.delete(save=False)  # Удаляем файл с диска
+                news.image = None
+
+        # Загрузка нового фото (если есть)
         if 'image' in request.FILES:
             news.image = request.FILES['image']
 
