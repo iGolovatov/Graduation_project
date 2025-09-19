@@ -17,6 +17,8 @@ class AboutView(TemplateView):
 class BlogView(ListView):
     template_name = 'web_project/blog.html'
     model = News
+    paginate_by = 3
+    context_object_name = 'news_list'
 
     def get_queryset(self):
         return News.objects.filter(is_published=True).order_by('-created_at')

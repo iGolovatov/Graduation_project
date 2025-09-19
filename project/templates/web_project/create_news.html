@@ -1,5 +1,8 @@
 {% extends "base/base.html" %}
-
+{% load static %}
+{% block body_style %}
+background-image: url({% static 'images/author.jpg' %}); background-size: cover; background-position: center; background-repeat: no-repeat;
+{% endblock %}
 {% block title %}Создать новость — Новости{% endblock %}
 
 {% block content %}

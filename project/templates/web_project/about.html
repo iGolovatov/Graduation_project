@@ -1,6 +1,8 @@
 {% extends "base/base.html" %}
 {% load static %}
-
+{% block body_style %}
+background-image: url({% static 'images/author.jpg' %}); background-size: cover; background-position: center; background-repeat: no-repeat;
+{% endblock %}
 {% block title %}Биография - Андрей Головатов{% endblock %}
 
 {% block content %}
@@ -15,12 +17,7 @@
             <div class="col-lg-8">
                 <div class="content-card">
                     <div class="card-body">
-                        <div class="text-center mb-5">
-                            <img src="{% static 'images/author.jpg' %}"
-                                 alt="Андрей Головатов"
-                                 class="img-fluid rounded-circle shadow-lg"
-                                 style="max-width: 200px; border: 5px solid #FFC107;">
-                        </div>
+
 
                         <div class="about-content">
                             <p class="lead fs-5 mb-4">
@@ -35,7 +32,7 @@
                                 В процессе обучения я создал несколько проектов, включая этот персональный сайт, где делюсь своей историей, опытом и достижениями. Для меня важно не только писать код, но и понимать логику работы систем, создавать эффективные и масштабируемые решения.
                             </p>
 
-                            <div class="bg-light p-4 rounded-4 mb-4">
+                            <div class="p-4 rounded-4 mb-4">
                                 <h3 class="h5 fw-bold mb-3">Технологии, с которыми я работаю:</h3>
                                 <ul class="row list-unstyled">
                                     <li class="col-md-6 mb-2"><i class="fas fa-check text-success me-2"></i> Python</li>
@@ -60,13 +57,13 @@
                             <div class="text-center mt-5 pt-4 border-top">
                                 <h3 class="h5 mb-4">Связаться со мной</h3>
                                 <div class="d-flex justify-content-center gap-3 flex-wrap">
-                                    <a href="https://t.me/your_telegram" target="_blank" class="btn btn-outline-primary px-4 py-2">
+                                    <a href="https://t.me/igolovatov" target="_blank" class="btn btn-outline-primary px-4 py-2">
                                         <i class="fab fa-telegram me-2"></i> Telegram
                                     </a>
-                                    <a href="https://wa.me/your_whatsapp_number" target="_blank" class="btn btn-outline-success px-4 py-2">
+                                    <a href="https://wa.me/+79963791212" target="_blank" class="btn btn-outline-success px-4 py-2">
                                         <i class="fab fa-whatsapp me-2"></i> WhatsApp
                                     </a>
-                                    <a href="https://instagram.com/your_instagram" target="_blank" class="btn btn-outline-danger px-4 py-2">
+                                    <a href="https://instagram.com/igolovatov" target="_blank" class="btn btn-outline-danger px-4 py-2">
                                         <i class="fab fa-instagram me-2"></i> Instagram
                                     </a>
                                 </div>

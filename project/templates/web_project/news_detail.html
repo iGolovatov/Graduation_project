@@ -1,4 +1,10 @@
 {% extends "base/base.html" %}
+{% load static %}
+{% load link_filter %}
+
+{% block body_style %}
+background-image: url({% static 'images/author.jpg' %}); background-size: cover; background-position: center; background-repeat: no-repeat;
+{% endblock %}
 
 {% block title %}{{ news.title }} — Новости{% endblock %}
 
@@ -20,7 +26,7 @@
     {% endif %}
 
     <div class="lead fs-5 mb-5">
-        {{ news.content|linebreaks }}
+        {{ news.content|make_links|linebreaks|safe }}
     </div>
 
     <a href="{% url 'blog' %}" class="btn btn-outline-primary btn-lg">
