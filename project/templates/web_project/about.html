@@ -1,70 +1,110 @@
 {% extends "base/base.html" %}
 {% load static %}
 {% block body_style %}
-background-image: url({% static 'images/author.jpg' %}); background-size: cover; background-position: center; background-repeat: no-repeat;
+    background-image: url({% static 'images/author.jpg' %}); background-size: cover; background-position: center;
+    background-repeat: no-repeat;
 {% endblock %}
 {% block title %}Биография - Андрей Головатов{% endblock %}
 
 {% block content %}
-<!-- Hero Section for About Page -->
 
-    <h1 class="display-4 mb-4">Биография</h1>
-    <p class="lead fs-2 mb-5 text-warning">Моя история и путь в IT</p>
+    <div class="container text-center">
+        <h1 class="display-4 mb-4">Биография</h1>
+        <p class="lead fs-2 mb-5">Моя история и путь в IT</p>
+    </div>
 
-    <!-- Main Content -->
+
     <main class="container my-5">
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="content-card">
                     <div class="card-body">
-
-
                         <div class="about-content">
                             <p class="lead fs-5 mb-4">
-                                Меня зовут <strong>Андрей Головатов</strong>, и я начинающий back-end разработчик, увлечённый миром технологий и программирования.
+                                Меня зовут <strong>Андрей Головатов</strong>, и я начинающий back-end разработчик,
+                                увлечённый миром технологий и программирования.
                             </p>
 
                             <p class="fs-5 mb-4">
-                                Мой путь в IT начался с изучения основ веб-разработки. Я погрузился в изучение Python, Django, HTML, CSS и JavaScript, постепенно расширяя свой технический стек и углубляя знания в области back-end разработки.
+                                Мой путь в IT начался с изучения основ веб-разработки. Я погрузился в изучение Python,
+                                Django, HTML, CSS и JavaScript, постепенно расширяя свой технический стек и углубляя
+                                знания в области back-end разработки.
                             </p>
 
                             <p class="fs-5 mb-4">
-                                В процессе обучения я создал несколько проектов, включая этот персональный сайт, где делюсь своей историей, опытом и достижениями. Для меня важно не только писать код, но и понимать логику работы систем, создавать эффективные и масштабируемые решения.
+                                С сентября 2024 года я обучаюсь в одном из ведущих образовательных учреждений для
+                                IT-специалистов — <strong><a href="https://top-academy.ru/" target="_blank"
+                                                             rel="noopener noreferrer">Академии
+                                TOP</a></strong>. В течение всего года нашим курсом руководил <strong>Владимир
+                                Монин</strong> — эксперт с глубокой практикой, чей педагогический талант сочетает
+                                ясность объяснений, системный подход и искреннюю заботу о прогрессе каждого студента.
+                                Под его наставничеством я не просто осваиваю технологии — я учусь проектировать решения,
+                                думать архитектурно и писать код, который работает надёжно и масштабируемо.
                             </p>
 
-                            <div class="p-4 rounded-4 mb-4">
+                            <p class="fs-5 mb-4">
+                                В процессе обучения я создал несколько проектов, включая этот персональный сайт, где
+                                делюсь своей историей, опытом и достижениями. Для меня важно не только писать код, но и
+                                понимать логику работы систем, создавать эффективные и масштабируемые решения.
+                            </p>
+
+                            <div class="p-4 rounded-4 mb-4 bg-light bg-opacity-10">
                                 <h3 class="h5 fw-bold mb-3">Технологии, с которыми я работаю:</h3>
                                 <ul class="row list-unstyled">
-                                    <li class="col-md-6 mb-2"><i class="fas fa-check text-success me-2"></i> Python</li>
-                                    <li class="col-md-6 mb-2"><i class="fas fa-check text-success me-2"></i> Django</li>
-                                    <li class="col-md-6 mb-2"><i class="fas fa-check text-success me-2"></i> HTML/CSS</li>
-                                    <li class="col-md-6 mb-2"><i class="fas fa-check text-success me-2"></i> Bootstrap</li>
-                                    <li class="col-md-6 mb-2"><i class="fas fa-check text-success me-2"></i> JavaScript</li>
-                                    <li class="col-md-6 mb-2"><i class="fas fa-check text-success me-2"></i> PostgreSQL</li>
-                                    <li class="col-md-6 mb-2"><i class="fas fa-check text-success me-2"></i> Git</li>
-                                    <li class="col-md-6 mb-2"><i class="fas fa-check text-success me-2"></i> REST API</li>
+                                    <li class="col-md-6 mb-2"><i class="fab fa-python text-primary me-2"></i> Python
+                                    </li>
+                                    <li class="col-md-6 mb-2"><i class="fas fa-dharmachakra text-success me-2"></i>
+                                        Django
+                                    </li>
+                                    <li class="col-md-6 mb-2"><i class="fab fa-html5 text-warning me-2"></i> HTML/CSS
+                                    </li>
+                                    <li class="col-md-6 mb-2"><i class="fab fa-bootstrap text-info me-2"></i> Bootstrap
+                                    </li>
+                                    <li class="col-md-6 mb-2"><i class="fab fa-js text-warning me-2"></i> JavaScript
+                                    </li>
+                                    <li class="col-md-6 mb-2"><i class="fas fa-database text-primary me-2"></i>
+                                        PostgreSQL
+                                    </li>
+                                    <li class="col-md-6 mb-2"><i class="fab fa-git-alt text-danger me-2"></i> Git</li>
+                                    <li class="col-md-6 mb-2"><i class="fas fa-plug text-success me-2"></i> REST API
+                                    </li>
                                 </ul>
                             </div>
 
                             <p class="fs-5 mb-4">
-                                Я стремлюсь к постоянному профессиональному росту, активно изучаю новые технологии и подходы к разработке. В свободное время участвую в open-source проектах, решаю задачи на платформах для программистов и экспериментирую с новыми инструментами.
+                                Я стремлюсь к постоянному профессиональному росту, активно изучаю новые технологии и
+                                подходы к разработке. В свободное время участвую в open-source проектах, решаю задачи на
+                                платформах для программистов и экспериментирую с новыми инструментами.
                             </p>
 
                             <p class="fs-5 mb-4">
-                                Моя цель — стать профессиональным back-end разработчиком, создавать надёжные и эффективные веб-приложения, которые решают реальные задачи и приносят пользу пользователям.
+                                Моя цель — стать профессиональным back-end разработчиком, создавать надёжные и
+                                эффективные веб-приложения, которые решают реальные задачи и приносят пользу
+                                пользователям.
                             </p>
 
                             <div class="text-center mt-5 pt-4 border-top">
                                 <h3 class="h5 mb-4">Связаться со мной</h3>
                                 <div class="d-flex justify-content-center gap-3 flex-wrap">
-                                    <a href="https://t.me/igolovatov" target="_blank" class="btn btn-outline-primary px-4 py-2">
+                                    <a href="https://t.me/igolovatov" target="_blank" rel="noopener noreferrer"
+                                       class="btn btn-outline-primary px-4 py-2">
                                         <i class="fab fa-telegram me-2"></i> Telegram
                                     </a>
-                                    <a href="https://wa.me/+79963791212" target="_blank" class="btn btn-outline-success px-4 py-2">
+                                    <a href="https://wa.me/+79963791212" target="_blank" rel="noopener noreferrer"
+                                       class="btn btn-outline-success px-4 py-2">
                                         <i class="fab fa-whatsapp me-2"></i> WhatsApp
                                     </a>
-                                    <a href="https://instagram.com/igolovatov" target="_blank" class="btn btn-outline-danger px-4 py-2">
+                                    <a href="https://instagram.com/igolovatov" target="_blank" rel="noopener noreferrer"
+                                       class="btn btn-outline-danger px-4 py-2">
                                         <i class="fab fa-instagram me-2"></i> Instagram
+                                    </a>
+                                    <a href="mailto:golovatovandrew@yandex.ru" target="_blank" rel="noopener noreferrer"
+                                       class="btn btn-outline-light px-4 py-2">
+                                        <i class="fas fa-envelope me-2"></i> Yandex
+                                    </a>
+                                    <a href="mailto:igolovatov@gmail.com" target="_blank" rel="noopener noreferrer"
+                                       class="btn btn-outline-light px-4 py-2">
+                                        <i class="fas fa-envelope me-2"></i> Google
                                     </a>
                                 </div>
                             </div>
