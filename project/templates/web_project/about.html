@@ -98,14 +98,36 @@
                                        class="btn btn-outline-danger px-4 py-2">
                                         <i class="fab fa-instagram me-2"></i> Instagram
                                     </a>
-                                    <a href="mailto:golovatovandrew@yandex.ru" target="_blank" rel="noopener noreferrer"
-                                       class="btn btn-outline-light px-4 py-2">
+                                    <button
+                                        class="btn btn-outline-light px-4 py-2"
+                                        onclick="
+                                            const btn = this;
+                                            const originalText = btn.innerHTML;
+                                            navigator.clipboard.writeText('golovatovandrew@yandex.ru')
+                                                .then(() => {
+                                                    btn.innerText = '✅ Скопировано!';
+                                                    setTimeout(() => btn.innerHTML = originalText, 2000);
+                                                })
+                                                .catch(() => alert('Ошибка копирования'))
+                                        "
+                                    >
                                         <i class="fas fa-envelope me-2"></i> Yandex
-                                    </a>
-                                    <a href="mailto:igolovatov@gmail.com" target="_blank" rel="noopener noreferrer"
-                                       class="btn btn-outline-light px-4 py-2">
+                                    </button>
+                                    <button
+                                        class="btn btn-outline-light px-4 py-2"
+                                        onclick="
+                                            const btn = this;
+                                            const originalText = btn.innerHTML;
+                                            navigator.clipboard.writeText('golovatovandrew@yandex.ru')
+                                                .then(() => {
+                                                    btn.innerText = '✅ Скопировано!';
+                                                    setTimeout(() => btn.innerHTML = originalText, 2000);
+                                                })
+                                                .catch(() => alert('Ошибка копирования'))
+                                        "
+                                    >
                                         <i class="fas fa-envelope me-2"></i> Google
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                         </div>

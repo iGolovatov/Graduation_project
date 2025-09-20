@@ -1,9 +1,7 @@
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import JsonResponse
 from django.urls import reverse_lazy
-from django.views import View
-from django.views.generic import TemplateView, ListView, CreateView, DetailView
-from django.shortcuts import get_object_or_404
+from django.views.generic import TemplateView, ListView, CreateView, DetailView, UpdateView
 
 from .forms import NewsForm
 from .models import News
@@ -34,6 +32,10 @@ class NewsCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('blog')
     login_url = reverse_lazy('user_login')
 
+    def form_valid(self, form):
+        messages.success(self.request, "Новость успешно предложена! После модерации она появится на сайте.")
+        return super().form_valid(form)
+
 
 class NewsDetailView(DetailView):
     template_name = 'web_project/news_detail.html'
@@ -41,49 +43,14 @@ class NewsDetailView(DetailView):
     context_object_name = 'news'
 
 
-class NewsEditAjaxView(LoginRequiredMixin, View):
-    """
-    Обрабатывает AJAX-запрос на редактирование новости.
-    Поддерживает:
-    - изменение заголовка и текста
-    - загрузку нового фото
-    - удаление текущего фото через чекбокс
-    Только для администраторов (is_staff или is_superuser).
-    """
+class NewsEditView(LoginRequiredMixin, UpdateView):
+    model = News
+    form_class = NewsForm
+    login_url = reverse_lazy('user_login')
+    success_url = reverse_lazy('blog')
+    template_name = 'web_project/news_update.html'
 
-    def post(self, request, *args, **kwargs):
+    def dispatch(self, request, *args, **kwargs):
         if not (request.user.is_staff or request.user.is_superuser):
-            return JsonResponse({'error': 'Доступ запрещён'}, status=403)
-
-        news_id = request.POST.get('news_id')
-        if not news_id:
-            return JsonResponse({'error': 'ID новости не указан'}, status=400)
-
-        news = get_object_or_404(News, id=news_id)
-
-        title = request.POST.get('title', '').strip()
-        content = request.POST.get('content', '').strip()
-
-        if not title:
-            return JsonResponse({'error': 'Заголовок обязателен'}, status=400)
-        if not content:
-            return JsonResponse({'error': 'Текст обязателен'}, status=400)
-
-        news.title = title
-        news.content = content
-
-        # Удаление фото, если чекбокс отмечен
-        if request.POST.get('delete_image') == 'on':
-            if news.image:
-                news.image.delete(save=False)  # Удаляем файл с диска
-                news.image = None
-
-        # Загрузка нового фото (если есть)
-        if 'image' in request.FILES:
-            news.image = request.FILES['image']
-
-        try:
-            news.save()
-            return JsonResponse({'success': True})
-        except Exception as e:
-            return JsonResponse({'error': f'Ошибка сохранения: {str(e)}'}, status=500)
+            return self.handle_no_permission()
+        return super().dispatch(request, *args, **kwargs)

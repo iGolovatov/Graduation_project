@@ -8,6 +8,5 @@ urlpatterns = [
     path('blog', BlogView.as_view(), name='blog'),
     path('blog/create', NewsCreateView.as_view(), name='create_news'),
     path('blog/<int:pk>/', NewsDetailView.as_view(), name='news_detail'),
-    path('api/edit-news/', views.NewsEditAjaxView.as_view(), name='api_edit_news'),
-    path('api/edit-news/', views.NewsEditAjaxView.as_view(), name='api_edit_news'),
+    path('blog/edit/<int:pk>/', views.NewsEditView.as_view(), name='edit_news'),
 ]

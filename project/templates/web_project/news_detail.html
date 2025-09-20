@@ -3,84 +3,43 @@
 {% load link_filter %}
 
 {% block body_style %}
-background-image: url({% static 'images/author.jpg' %}); background-size: cover; background-position: center; background-repeat: no-repeat;
+    background-image: url({% static 'images/author.jpg' %}); background-size: cover; background-position: center;
+    background-repeat: no-repeat;
 {% endblock %}
 
 {% block title %}{{ news.title }} — Новости{% endblock %}
 
 {% block content %}
-<div class="container py-5">
-    <h1 class="display-5 fw-bold mb-3">{{ news.title }}</h1>
+    <div class="container py-5">
+        <h1 class="display-5 fw-bold mb-3">{{ news.title }}</h1>
 
-    <p class="text-muted mb-4">
-        <i class="bi bi-person-circle me-2"></i>
-        <strong>{{ news.author }}</strong> ·
-        <i class="bi bi-clock-history me-2"></i>
-        {{ news.created_at|date:"d M Y в H:i" }}
-    </p>
+        <p class="text-muted mb-4">
+            <i class="bi bi-person-circle me-2"></i>
+            <strong>{{ news.author }}</strong> ·
+            <i class="bi bi-clock-history me-2"></i>
+            {{ news.created_at|date:"d M Y в H:i" }}
+        </p>
 
-    {% if news.image %}
-        <div class="mb-4">
-            <img id="image-preview" src="{{ news.image.url }}" class="img-fluid rounded shadow-sm" alt="{{ news.title }}">
+        {% if news.image %}
+            <div class="mb-4">
+                <img id="image-preview" src="{{ news.image.url }}" class="img-fluid rounded shadow-sm"
+                     alt="{{ news.title }}">
+            </div>
+        {% endif %}
+
+        <div class="lead fs-5 mb-5" id="content-text">
+            {{ news.content|make_links|linebreaks|safe }}
         </div>
-    {% endif %}
 
-    <div class="lead fs-5 mb-5" id="content-text">
-        {{ news.content|make_links|linebreaks|safe }}
+        <a href="{% url 'blog' %}" class="btn btn-outline-primary btn-lg">
+            <i class="bi bi-arrow-left me-2"></i>Вернуться к списку новостей
+        </a>
+
+        {% if user.is_staff or user.is_superuser %}
+            <a href="{% url 'edit_news' news.id %}" class="btn btn-lg btn-outline-warning">
+                Редактировать
+            </a>
+        {% endif %}
+
     </div>
-
-    <!-- Кнопка редактирования (только для админа) -->
-    {% if user.is_staff or user.is_superuser %}
-        <button class="btn btn-warning mb-4" onclick="openEditModal()">
-            <i class="bi bi-pencil-square me-1"></i> Редактировать
-        </button>
-    {% endif %}
-
-    <!-- Модальное окно редактирования -->
-    <div id="edit-modal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000;">
-        <div class="modal-content" style="background: white; margin: 10% auto; padding: 2rem; width: 80%; max-width: 600px; border-radius: 1rem;">
-            <h4>Редактирование новости</h4>
-            <form id="edit-news-form" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <input type="hidden" name="news_id" value="{{ news.id }}">
-
-                <div class="mb-3">
-                    <label for="title" class="form-label">Заголовок</label>
-                    <input type="text" class="form-control" id="title" name="title" value="{{ news.title }}" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="content" class="form-label">Текст</label>
-                    <textarea class="form-control" id="content" name="content" rows="8" required>{{ news.content }}</textarea>
-                </div>
-
-                {% if news.image %}
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" name="delete_image" id="delete_image" class="form-check-input">
-                        <label for="delete_image" class="form-check-label">Удалить текущее фото</label>
-                    </div>
-                {% endif %}
-
-                <div class="mb-3">
-                    <label for="image" class="form-label">Загрузить новое фото (необязательно)</label>
-                    <input type="file" class="form-control" id="image" name="image">
-                </div>
-
-                <div class="d-flex gap-2">
-                    <button type="submit" class="btn btn-primary">Сохранить</button>
-                    <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Отмена</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Кнопка возврата -->
-    <a href="{% url 'blog' %}" class="btn btn-outline-primary btn-lg">
-        <i class="bi bi-arrow-left me-2"></i>Вернуться к списку новостей
-    </a>
-</div>
-{% endblock %}
-
-{% block extra_js %}
-    <script src="{% static 'js/edit_news_modal.js' %}"></script>
 {% endblock %}
