@@ -10,7 +10,7 @@ def order_services_changed(sender, instance, created, **kwargs):
         created_at = instance.created_at.strftime("%d.%m.%Y %H:%M")
 
         message = (
-            f"*🔔 НОВАЯ НОВОСТЬ! *\n\n"
+            f"*🔔 У ВАС НА САЙТЕ ПРЕДЛОЖЕНИЕ НОВОСТИ! *\n\n"
             f"*Автор:* {instance.author}\n"
             f"*Заголовок:* `{instance.title}`\n"
             f"*Краткое содержание:* {instance.content[:255]}\n"
